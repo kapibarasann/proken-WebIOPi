@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>WebIOPi | ラジコン</title>
+    <script type="text/javascript" src="/webiopi.js"></script>
+    <script type="text/javascript">
+    webiopi().ready(function() {
+	// Call back function
+	var callBack = function(macro, args, response){}
+
+	// Create a "stop" button and call function
+        var stop = webiopi().createButton("stop", "止", function(){
+                webiopi().callMacro("stop", [], callBack);
+        });
+
+        // Create a "forward" button and call function
+        var forward = webiopi().createButton("forward", "↑ ", function(){
+		webiopi().callMacro("forward", [], callBack);
+	});
+
+        // Create a "back" button and call function
+        var back = webiopi().createButton("back", "↓ ", function(){
+                webiopi().callMacro("back", [], callBack);
+        });
+
+        // Create a "left_rot" button and call function
+        var left_rot = webiopi().createButton("left_rot", "← ", function(){
+              webiopi().callMacro("left_rot", [], callBack);
+        });
+
+        // Create a "right_rot" button and call function
+        var right_rot = webiopi().createButton("right_rot", "→ ", function(){
+                webiopi().callMacro("right_rot", [], callBack);
+        });
+ 
+        // Append button to HTML element with ID="controls" using jQuery
+        $("#controls1").append(forward);
+	$("#controls2").append(left_rot);
+	$("#controls2").append(stop);
+	$("#controls2").append(right_rot);
+	$("#controls3").append(back);
+ 
+        // Refresh GPIO buttons
+        // pass true to refresh repeatedly of false to refresh once
+                webiopi().refreshGPIO(true);
+    });
+ 
+    </script>
+ 
+<style type="text/css">
+        button {
+            display: block;
+            margin: 5px 5px 5px 5px;
+            width: 160px;
+            height: 45px;
+            font-size: 24pt;
+            font-weight: bold;
+            color: white;
+        }
+
+	#control_buttons div {
+		display: flex;
+		justify-content: center;
+	}
+ /*
+        #gpio17.LOW {
+            background-color: Black;
+        }
+ 
+        #gpio17.HIGH {
+            background-color: Blue;
+        }*/
+    </style>
+ 
+</head>
+<body>
+
+<div id="control_buttons">
+<div id="controls1" align="center"></div>
+<div id="controls2" align="center"></div>
+<div id="controls3" align="center"></div>
+</div> 
+
+</body>
+</html>

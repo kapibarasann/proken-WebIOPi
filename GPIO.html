@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>WebIOPi | Light Control</title>
+    <script type="text/javascript" src="/webiopi.js"></script>
+    <script type="text/javascript">
+    webiopi().ready(function() {
+        // Create a "Light" labeled button for GPIO 17
+        var forward = webiopi().createGPIOButton(17, "前進");
+        var left = webiopi().createGPIOButton(2, "左回転");
+        var right = webiopi().createGPIOButton(3, "右回転");
+        var back = webiopi().createGPIOButton(4, "後退");
+ 
+        // Append button to HTML element with ID="controls" using jQuery
+        $("#controls1").append(forward);
+	$("#controls2").append(left);
+	$("#controls2").append(right);
+	$("#controls3").append(back);
+
+ 
+        // Refresh GPIO buttons
+        // pass true to refresh repeatedly of false to refresh once
+                webiopi().refreshGPIO(true);
+    });
+ 
+    </script>
+ 
+<style type="text/css">
+        button {
+            display: block;
+            margin: 5px 5px 5px 5px;
+            width: 160px;
+            height: 45px;
+            font-size: 24pt;
+            font-weight: bold;
+            color: white;
+        }
+
+	#control_buttons div {
+		display: flex;
+		justify-content: center;
+	}
+ 
+        #gpio17.LOW {
+            background-color: Black;
+        }
+ 
+        #gpio17.HIGH {
+            background-color: Blue;
+        }
+    </style>
+ 
+</head>
+<body>
+
+<div id="control_buttons">
+<div id="controls1" align="center"></div>
+<div id="controls2" align="center"></div>
+<div id="controls3" align="center"></div>
+</div> 
+
+</body>
+</html>
