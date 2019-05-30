@@ -14,22 +14,32 @@
         });
 
         // Create a "forward" button and call function
-        var forward = webiopi().createButton("forward", "↑ ", function(){
+        var forward = webiopi().createButton("forward", "^", function(){
                 webiopi().callMacro("forward", [], callBack);
         });
 
+        // Create a "back" button and call function
+        var back = webiopi().createButton("back", "v", function(){
+                webiopi().callMacro("back", [], callBack);
+        });
 
-        // Create a "Light" labeled button for GPIO 17
-        //var forward = webiopi().createGPIOButton(17, "前進");
-        var left = webiopi().createGPIOButton(10, "左回転");
-        var right = webiopi().createGPIOButton(11, "右回転");
-        var back = webiopi().createGPIOButton(5, "後退");
+        // Create a "left" button and call function
+       /* var left = webiopi().createButton("left", "<", function(){
+                webiopi().callMacro("left", [], callBack);
+        });*/
+
+        // Create a "right" button and call function
+        /*var right = webiopi().createButton("right", ">", function(){
+                webiopi().callMacro("right", [], callBack);
+        });*/
+
  
         // Append button to HTML element with ID="controls" using jQuery
         $("#controls1").append(forward);
-	$("#controls2").append(left);
-	$("#controls2").append(right);
-	$("#controls3").append(stop);
+	//$("#controls2").append(left);
+	$("#controls2").append(stop);
+	//$("#controls2").append(right);
+	$("#controls3").append(back);
 
  
         // Refresh GPIO buttons
