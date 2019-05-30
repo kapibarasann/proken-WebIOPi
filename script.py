@@ -1,43 +1,62 @@
 import webiopi
-import datetime
- 
 GPIO = webiopi.GPIO
- 
-LIGHT = 17 # GPIO pin using BCM numbering
- 
-HOUR_ON  = 8  # Turn Light ON at 08:00
-HOUR_OFF = 18 # Turn Light OFF at 18:00
- 
-# setup function is automatically called at WebIOPi startup
+
+IN1 = 2
+IN2 = 3
+IN3 = 4
+IN4 = 17
+
+left = [IN1, IN2]
+right = [IN4, IN3]
+
 def setup():
-    # set the GPIO used by the light to output
-    GPIO.setFunction(LIGHT, GPIO.OUT)
- 
-    # retrieve current datetime
-    now = datetime.datetime.now()
- 
-    # test if we are between ON time and tun the light ON
-    if ((now.hour >= HOUR_ON) and (now.hour < HOUR_OFF)):
-        GPIO.digitalWrite(LIGHT, GPIO.HIGH)
- 
-# loop function is repeatedly called by WebIOPi 
+	GPIO.setFunction(IN1, GPIO.OUT)
+	GPIO.setFunction(IN2, GPIO.OUT)
+	GPIO.setFunction(IN3, GPIO.OUT)
+	GPIO.setFunction(IN4, GPIO.OUT)
+
 def loop():
-    # retrieve current datetime
-    now = datetime.datetime.now()
- 
-    # toggle light ON all days at the correct time
-    if ((now.hour == HOUR_ON) and (now.minute == 0) and (now.second == 0)):
-        if (GPIO.digitalRead(LIGHT) == GPIO.LOW):
-            GPIO.digitalWrite(LIGHT, GPIO.HIGH)
- 
-    # toggle light OFF
-    if ((now.hour == HOUR_OFF) and (now.minute == 0) and (now.second == 0)):
-        if (GPIO.digitalRead(LIGHT) == GPIO.HIGH):
-            GPIO.digitalWrite(LIGHT, GPIO.LOW)
- 
-    # gives CPU some time before looping again
-    webiopi.sleep(1)
- 
-# destroy function is called at WebIOPi shutdown
+	webiopi.sleep(0.1)
+
 def destroy():
-    GPIO.digitalWrite(LIGHT, GPIO.LOW)
+	GPIO.digitalWrite(IN1, GPIO.LOW)
+	GPIO.digitalWrite(IN2, GPIO.LOW)
+	GPIO.digitalWrite(IN3, GPIO.LOW)
+	GPIO.digitalWrite(IN4, GPIO.LOW)
+
+@webiopi.macro
+def stop():
+	GPIO.digitalWrite(left[0], GPIO.LOW)
+	GPIO.digitalWrite(left[1], GPIO.LOW)
+	GPIO.digitalWrite(right[0], GPIO.LOW)
+	GPIO.digitalWrite(right[1], GPIO.LOW)
+
+@webiopi.macro
+def forward():
+	GPIO.digitalWrite(left[0], GPIO.HIGH)
+	GPIO.digitalWrite(left[1], GPIO.LOW)
+	GPIO.digitalWrite(right[0], GPIO.HIGH)
+	GPIO.digitalWrite(right[1], GPIO.LOW)
+
+@webiopi.macro
+def back():
+	GPIO.digitalWrite(left[0], GPIO.LOW)
+	GPIO.digitalWrite(left[1], GPIO.HIGH)
+	GPIO.digitalWrite(right[0], GPIO.LOW)
+	GPIO.digitalWrite(right[1], GPIO.HIGH)
+
+#@webiopi.macro
+#def left():
+#	GPIO.digitalWrite(left[0], GPIO.LOW)
+#	GPIO.digitalWrite(left[1], GPIO.HIGH)
+#	GPIO.digitalWrite(right[0], GPIO.HIGH)
+#	GPIO.digitalWrite(right[1], GPIO.LOW)
+
+#@webiopi.macro
+#def back():
+#	GPIO.digitalWrite(left[0], GPIO.HIGH)
+#	GPIO.digitalWrite(left[1], GPIO.LOW)
+#	GPIO.digitalWrite(right[0], GPIO.LOW)
+#	GPIO.digitalWrite(right[1], GPIO.HIGH)
+
+
