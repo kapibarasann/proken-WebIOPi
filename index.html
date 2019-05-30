@@ -9,7 +9,7 @@
         var callBack = function(macro, args, response){}
 
         // Create a "stop" button and call function
-        var stop = webiopi().createButton("stop", "止", function(){
+        var stop = webiopi().createButton("stop", "!", function(){
                 webiopi().callMacro("stop", [], callBack);
         });
 
@@ -24,21 +24,21 @@
         });
 
         // Create a "left" button and call function
-       /* var left = webiopi().createButton("left", "<", function(){
-                webiopi().callMacro("left", [], callBack);
-        });*/
+        var left = webiopi().createButton("left", "<", function(){
+                webiopi().callMacro("left_rot", [], callBack);
+        });
 
         // Create a "right" button and call function
-        /*var right = webiopi().createButton("right", ">", function(){
-                webiopi().callMacro("right", [], callBack);
-        });*/
+        var right = webiopi().createButton("right", ">", function(){
+                webiopi().callMacro("right_rot", [], callBack);
+        });
 
  
         // Append button to HTML element with ID="controls" using jQuery
         $("#controls1").append(forward);
-	//$("#controls2").append(left);
+	$("#controls2").append(left);
 	$("#controls2").append(stop);
-	//$("#controls2").append(right);
+	$("#controls2").append(right);
 	$("#controls3").append(back);
 
  
@@ -53,9 +53,9 @@
         button {
             display: block;
             margin: 5px 5px 5px 5px;
-            width: 160px;
-            height: 45px;
-            font-size: 24pt;
+            width: 300px;
+            height: 300px;
+            font-size: 100pt;
             font-weight: bold;
             color: white;
         }
